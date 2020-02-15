@@ -19,6 +19,18 @@ variable "region" {
   description = "Custom region name the deployment is for"
 }
 
+variable "name" {
+  type        = string
+  default     = "cert-manager"
+  description = "Name of this deployment and related resources"
+}
+
+variable "app_name" {
+  type        = string
+  default     = ""
+  description = "Overwrite for the helm deployment name"
+}
+
 variable "attributes" {
   type        = list
   default     = []
@@ -69,4 +81,10 @@ variable "cert_manager_trust_role" {
   type        = string
   default     = ""
   description = "Role ARN allowed to assume the role created for the cert manager. If not set the trust relationship will allow EC2 to assume the role"
+}
+
+variable "helm_values_root" {
+  type        = string
+  default     = "."
+  description = "Path to the directory containing values.yaml for helm to overwrite any defaults" 
 }
