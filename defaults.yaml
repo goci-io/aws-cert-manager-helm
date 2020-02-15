@@ -1,0 +1,22 @@
+replicaCount: 3
+
+prometheus:
+  servicemonitor:
+    enabled: true
+
+resources:
+  requests:
+    cpu: 30m
+    memory: 86Mi
+  limits:
+    cpu: 60m
+    memory: 128Mi
+
+ingressShim:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 30m
+      memory: 72Mi
