@@ -6,7 +6,7 @@ module "cert_manager_iam_label" {
 
 data "aws_iam_policy_document" "cert_manager" {
   statement {
-    effect    = "Allow",
+    effect    = "Allow"
     actions   = ["route53:GetChange"],
     resources = ["arn:aws:route53:::change/*"]
   }
