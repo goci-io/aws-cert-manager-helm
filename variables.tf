@@ -55,8 +55,8 @@ variable "dns_zone" {
 }
 
 variable "private_zone" {
-  type        = bool
-  default     = false
+  type    = bool
+  default = false
 }
 
 variable "ca_module_state" {
@@ -86,5 +86,5 @@ variable "cert_manager_trust_role" {
 variable "helm_values_root" {
   type        = string
   default     = "."
-  description = "Path to the directory containing values.yaml for helm to overwrite any defaults" 
+  description = "Path to the directory containing values.yaml for helm to overwrite any defaults"
 }

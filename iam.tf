@@ -7,12 +7,12 @@ module "cert_manager_iam_label" {
 data "aws_iam_policy_document" "cert_manager" {
   statement {
     effect    = "Allow"
-    actions   = ["route53:GetChange"],
+    actions   = ["route53:GetChange"]
     resources = ["arn:aws:route53:::change/*"]
   }
 
   statement {
-    effect = "Allow"
+    effect    = "Allow"
     resources = ["arn:aws:route53:::hostedzone/${data.aws_route53_zone.zone.id}"]
     actions = [
       "route53:ChangeResourceRecordSets",
@@ -31,9 +31,9 @@ data "aws_iam_policy_document" "role_trust" {
   count = var.cert_manager_trust_role == "" ? 0 : 1
 
   statement {
-    effect    = "Allow"
-    actions   = ["sts:AssumeRole"]
-    
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
     principals {
       type        = "AWS"
       identifiers = [var.cert_manager_trust_role]
