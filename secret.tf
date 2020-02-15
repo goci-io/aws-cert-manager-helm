@@ -1,5 +1,6 @@
 locals {
-  ca_private_key = var.ca_private_key_secret != "" && fileexists(var.ca_private_key_secret) ? file(var.ca_private_key_secret) : var.ca_private_key_secret
+  is_ca_file     = var.ca_private_key_secret != "" ? fileexists(var.ca_private_key_secret) : false
+  ca_private_key = local.is_ca_file ? file(var.ca_private_key_secret) : var.ca_private_key_secret
 }
 
 data "terraform_remote_state" "ca" {
