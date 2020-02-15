@@ -59,6 +59,11 @@ variable "private_zone" {
   default = false
 }
 
+variable "issuer_email" {
+  type        = string
+  description = "The email address of the ACME account to issue certificates"
+}
+
 variable "ca_module_state" {
   type        = string
   default     = ""
