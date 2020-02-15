@@ -43,7 +43,7 @@ resource "null_resource" "destroy_issuer" {
   depends_on = [null_resource.apply_issuer]
 
   provisioner "local-exec" {
-    when    = "destroy"
+    when    = destroy
     command = "echo \"${local.issuer_resource}\" | kubectl delete -f - --ignore-not-found"
   }
 }
