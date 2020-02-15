@@ -11,7 +11,7 @@ locals {
   })
 }
 
-resource "helm_repository" "jetstack" {
+data "helm_repository" "jetstack" {
   name = "jetstack"
   url  = "https://charts.jetstack.io"
 }

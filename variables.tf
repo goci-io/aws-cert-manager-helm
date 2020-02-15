@@ -93,3 +93,8 @@ variable "helm_values_root" {
   default     = "."
   description = "Path to the directory containing values.yaml for helm to overwrite any defaults"
 }
+
+variable "aws_region" {
+  type        = string
+  description = "AWS Region the hosted zone exists in"
+}
