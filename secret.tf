@@ -6,7 +6,7 @@ data "terraform_remote_state" "ca" {
   count   = var.ca_module_state == "" ? 0 : 1
   backend = "s3"
 
-  config {
+  config = {
     key    = var.ca_module_state
     bucket = var.tf_bucket
   }
