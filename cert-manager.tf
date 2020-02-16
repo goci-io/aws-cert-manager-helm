@@ -18,7 +18,7 @@ data "helm_repository" "jetstack" {
 
 resource "helm_release" "cert_manager" {
   name          = coalesce(var.app_name, var.name)
-  repository    = data.helm_repository.jetstack.name
+  repository    = data.helm_repository.jetstack.metadata.0.name
   chart         = "stable/cert-manager"
   namespace     = "kube-system"
   version       = "v0.13.0"
