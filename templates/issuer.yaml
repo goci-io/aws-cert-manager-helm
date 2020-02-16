@@ -13,7 +13,7 @@ spec:
     - selector:
         dnsZones:
         %{ for zone in dns_zones ~}
-          - ${zone}
+          - "${zone}"
         %{ endfor ~}
       dns01:
         route53:
