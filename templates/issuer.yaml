@@ -12,9 +12,9 @@ spec:
     solvers:
     - selector:
         dnsZones:
-        %{ for zone in dns_zones ~}
+%{ for zone in dns_zones ~}
           - "${zone}"
-        %{ endfor ~}
+%{ endfor ~}
       dns01:
         route53:
           region: ${aws_region}
