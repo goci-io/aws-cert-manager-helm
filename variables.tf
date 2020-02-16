@@ -98,3 +98,9 @@ variable "aws_region" {
   type        = string
   description = "AWS Region the hosted zone exists in"
 }
+
+variable "aws_assume_role_arn" {
+  type        = string
+  default     = ""
+  description = "Role ARN to assume when creating AWS resources"
+}
