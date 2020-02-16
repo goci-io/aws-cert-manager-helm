@@ -17,9 +17,10 @@ data "helm_repository" "jetstack" {
 }
 
 resource "helm_release" "cert_manager" {
+  depends_on    = [null_resource.apply_crds]
   name          = coalesce(var.app_name, var.name)
   repository    = data.helm_repository.jetstack.metadata.0.name
-  chart         = "stable/cert-manager"
+  chart         = "jetstack/cert-manager"
   namespace     = "kube-system"
   version       = "v0.13.0"
   recreate_pods = true
