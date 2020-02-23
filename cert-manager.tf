@@ -21,7 +21,7 @@ resource "null_resource" "label_namespace" {
   count = var.disable_deprecated_crd_validation ? 1 : 0
 
   provisioner "local-exec" {
-    command = "kubectl label namespace ${local.k8s_namespace} certmanager.k8s.io/disable-validation=true --overwrite"
+    command = "kubectl label namespace ${var.k8s_namespace} certmanager.k8s.io/disable-validation=true --overwrite"
   }
 }
 
@@ -29,7 +29,7 @@ resource "helm_release" "cert_manager" {
   depends_on    = [null_resource.apply_crds, null_resource.label_namespace]
   repository    = data.helm_repository.jetstack.metadata.0.name
   name          = coalesce(var.app_name, var.name)
-  namespace     = local.k8s_namepace
+  namespace     = var.k8s_namepace
   chart         = "jetstack/cert-manager"
   version       = "v0.13.0"
   recreate_pods = true
