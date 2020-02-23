@@ -49,6 +49,12 @@ variable "delimiter" {
   description = "Delimiter to be used between `namespace`, `stage`, `name` and `attributes`"
 }
 
+variable "k8s_namepace" {
+  type        = string
+  default     = "kube-system"
+  description = "The kubernetes namespace to deploy the helm release into"
+}
+
 variable "dns_zone" {
   type        = string
   description = "Name of the dns zone to create validation records in"
@@ -103,4 +109,10 @@ variable "aws_assume_role_arn" {
   type        = string
   default     = ""
   description = "Role ARN to assume when creating AWS resources"
+}
+
+variable "disable_deprecated_crd_validation" {
+  type        = bool
+  default     = true
+  description = "Disables validation of previous custom resource definitions from certmanager.k8s.io"
 }
