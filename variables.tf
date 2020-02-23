@@ -104,3 +104,9 @@ variable "aws_assume_role_arn" {
   default     = ""
   description = "Role ARN to assume when creating AWS resources"
 }
+
+variable "disable_deprecated_crd_validation" {
+  type        = bool
+  default     = true
+  description = "Disables validation of previous custom resource definitions from certmanager.k8s.io"
+}
