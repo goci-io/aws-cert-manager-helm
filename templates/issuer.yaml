@@ -24,8 +24,8 @@ metadata:
   name: ${name}-ca
   namespace: kube-system
 spec:
-  secretName: ${app_name}-ca-tls
-  commonName: "${app_name}"
+  secretName: ${name}-ca-tls
+  commonName: "${name}"
   isCA: true
   issuerRef:
     kind: ClusterIssuer
