@@ -3,6 +3,7 @@ locals {
   issuer_resource = templatefile("${path.module}/templates/issuer.yaml", {
     name               = format("%s-%s", var.namespace, var.name)
     private_key_secret = kubernetes_secret.ca_pk.metadata.0.name
+    common_name        = data.aws_route53_zone.zone.name
     hosted_zone_id     = data.aws_route53_zone.zone.zone_id
     iam_role_arn       = aws_iam_role.cert_manager.arn
     email              = var.issuer_email
