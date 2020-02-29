@@ -21,12 +21,6 @@ data "aws_iam_policy_document" "cert_manager" {
   }
 }
 
-resource "aws_iam_policy" "policy" {
-  name        = module.cert_manager_iam_label.id
-  policy      = data.aws_iam_policy_document.cert_manager.json
-  description = "Allowing Cert-Manager to change Route53 DNS records on your behalf to fulfil dns challenges"
-}
-
 data "aws_iam_policy_document" "role_trust" {
   count = var.cert_manager_trust_role == "" ? 0 : 1
 
@@ -59,4 +53,10 @@ resource "aws_iam_role" "cert_manager" {
   name               = module.cert_manager_iam_label.id
   tags               = module.cert_manager_iam_label.tags
   assume_role_policy = join("", coalescelist(data.aws_iam_policy_document.role_trust.*.json, data.aws_iam_policy_document.ec2_trust.*.json))
+}
+
+resource "aws_iam_role_policy" "policy" {
+  role   = aws_iam_role.cert_manager.id
+  name   = module.cert_manager_iam_label.id
+  policy = data.aws_iam_policy_document.cert_manager.json
 }
