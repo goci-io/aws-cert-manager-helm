@@ -49,7 +49,7 @@ variable "delimiter" {
   description = "Delimiter to be used between `namespace`, `stage`, `name` and `attributes`"
 }
 
-variable "k8s_namepace" {
+variable "k8s_namespace" {
   type        = string
   default     = "kube-system"
   description = "The kubernetes namespace to deploy the helm release into"

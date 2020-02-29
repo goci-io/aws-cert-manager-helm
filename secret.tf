@@ -16,7 +16,7 @@ data "terraform_remote_state" "ca" {
 resource "kubernetes_secret" "ca_pk" {
   metadata {
     name      = format("%s-%s-ca-pk", var.namespace, var.name)
-    namespace = "kube-system"
+    namespace = var.k8s_namespace
   }
 
   data = {
