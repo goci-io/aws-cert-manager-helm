@@ -6,11 +6,11 @@ prometheus:
 
 resources:
   requests:
-    cpu: 30m
-    memory: 86Mi
-  limits:
-    cpu: 60m
+    cpu: 100m
     memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
 
 ingressShim:
   resources:
@@ -20,3 +20,12 @@ ingressShim:
     limits:
       cpu: 30m
       memory: 72Mi
+
+cainjector:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 120m
+      memory: 256Mi
