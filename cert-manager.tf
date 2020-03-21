@@ -30,7 +30,7 @@ resource "helm_release" "cert_manager" {
   repository    = data.helm_repository.jetstack.metadata.0.name
   name          = coalesce(var.app_name, var.name)
   namespace     = var.k8s_namespace
-  chart         = "jetstack/cert-manager"
+  chart         = "cert-manager"
   version       = "v0.13.0"
   recreate_pods = true
   wait          = true
