@@ -46,9 +46,13 @@ data "aws_iam_policy_document" "ec2_trust" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
+    dynamic "principals" {
+      for_each = var.iam_role_trust_relations
+
+      content {
+        type        = principals.value.type
+        identifiers = principals.value.identifiers
+      }
     }
   }
 }
