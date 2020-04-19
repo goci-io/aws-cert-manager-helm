@@ -3,7 +3,6 @@ global:
     enabled: true
 
 replicaCount: 3
-installCRDs: true
 
 prometheus:
   servicemonitor:
