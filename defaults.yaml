@@ -1,4 +1,9 @@
+global:
+  podSecurityPolicy:
+    enabled: true
+
 replicaCount: 3
+installCRDs: true
 
 prometheus:
   servicemonitor:
@@ -12,13 +17,14 @@ resources:
     cpu: 200m
     memory: 256Mi
 
-ingressShim:
+webhook:
+  replicaCount: 2
   resources:
     requests:
       cpu: 10m
       memory: 32Mi
     limits:
-      cpu: 30m
+      cpu: 20m
       memory: 72Mi
 
 cainjector:
