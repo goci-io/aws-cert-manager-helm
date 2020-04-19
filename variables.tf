@@ -116,3 +116,9 @@ variable "disable_deprecated_crd_validation" {
   default     = true
   description = "Disables validation of previous custom resource definitions from certmanager.k8s.io"
 }
+
+variable "iam_role_name_override" {
+  type        = string
+  default     = ""
+  description = "Overrides the IAM role name to use for cert-manager DNS challanges with Route53"
+}

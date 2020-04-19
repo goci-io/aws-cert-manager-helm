@@ -4,6 +4,10 @@ module "cert_manager_iam_label" {
   attributes = [var.region]
 }
 
+locals {
+  iam_role_name = var.iam_role_name_override == "" ? module.cert_manager_iam_label.id : var.iam_role_name_override
+}
+
 data "aws_iam_policy_document" "cert_manager" {
   statement {
     effect    = "Allow"
@@ -50,7 +54,7 @@ data "aws_iam_policy_document" "ec2_trust" {
 }
 
 resource "aws_iam_role" "cert_manager" {
-  name               = module.cert_manager_iam_label.id
+  name               = local.iam_role_name
   tags               = module.cert_manager_iam_label.tags
   assume_role_policy = join("", coalescelist(data.aws_iam_policy_document.role_trust.*.json, data.aws_iam_policy_document.ec2_trust.*.json))
 }
