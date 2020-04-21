@@ -25,7 +25,7 @@ resource "null_resource" "label_namespace" {
     command = "kubectl label namespace ${self.triggers.k8s_namespace} certmanager.k8s.io/disable-validation=true --overwrite"
   }
 
-  triggers {
+  triggers = {
     k8s_namespace = var.k8s_namespace
   }
 }
