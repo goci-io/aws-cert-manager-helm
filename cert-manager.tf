@@ -22,7 +22,11 @@ resource "null_resource" "label_namespace" {
   count = var.disable_deprecated_crd_validation ? 1 : 0
 
   provisioner "local-exec" {
-    command = "kubectl label namespace ${var.k8s_namespace} certmanager.k8s.io/disable-validation=true --overwrite"
+    command = "kubectl label namespace ${self.triggers.k8s_namespace} certmanager.k8s.io/disable-validation=true --overwrite"
+  }
+
+  triggers {
+    k8s_namespace = var.k8s_namespace
   }
 }
 
@@ -46,7 +50,11 @@ resource "null_resource" "apply_issuer" {
   depends_on = [helm_release.cert_manager]
 
   provisioner "local-exec" {
-    command = "echo \"${local.issuer_resource}\" | kubectl apply -f -"
+    command = "echo \"${lself.triggers.issuer}\" | kubectl apply -f -"
+  }
+
+  triggers = {
+    issuer = local.issuer_resource
   }
 }
 
@@ -55,6 +63,10 @@ resource "null_resource" "destroy_issuer" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "echo \"${local.issuer_resource}\" | kubectl delete -f - --ignore-not-found"
+    command = "echo \"${self.triggers.issuer}\" | kubectl delete -f - --ignore-not-found"
+  }
+
+  triggers = {
+    issuer = local.issuer_resource
   }
 }
