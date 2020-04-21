@@ -50,7 +50,7 @@ resource "null_resource" "apply_issuer" {
   depends_on = [helm_release.cert_manager]
 
   provisioner "local-exec" {
-    command = "echo \"${lself.triggers.issuer}\" | kubectl apply -f -"
+    command = "echo \"${self.triggers.issuer}\" | kubectl apply -f -"
   }
 
   triggers = {
