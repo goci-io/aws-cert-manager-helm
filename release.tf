@@ -7,6 +7,7 @@ locals {
     iam_role_arn       = aws_iam_role.cert_manager.arn
     iam_role_name      = aws_iam_role.cert_manager.name
     set_assume_config  = var.apply_assume_role_config
+    k8s_namespace      = var.k8s_namespace
     organization       = var.namespace
     email              = var.issuer_email
     aws_region         = var.aws_region
