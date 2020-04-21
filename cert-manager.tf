@@ -6,6 +6,7 @@ locals {
     common_name        = data.aws_route53_zone.zone.name
     hosted_zone_id     = data.aws_route53_zone.zone.zone_id
     iam_role_arn       = aws_iam_role.cert_manager.arn
+    organization       = var.namespace
     email              = var.issuer_email
     aws_region         = var.aws_region
   })

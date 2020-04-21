@@ -30,3 +30,7 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: ${name}
+  usages: 
+  - "cert sign"
+  organization:
+  - "${organization}"
