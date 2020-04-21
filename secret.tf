@@ -20,6 +20,6 @@ resource "kubernetes_secret" "ca_pk" {
   }
 
   data = {
-    secret = coalesce(join("", data.terraform_remote_state.ca.*.outputs.account_key_pem), local.ca_private_key)
+    "tls.key" = coalesce(join("", data.terraform_remote_state.ca.*.outputs.account_key_pem), local.ca_private_key)
   }
 }
