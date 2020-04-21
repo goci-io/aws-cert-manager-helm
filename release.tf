@@ -51,11 +51,6 @@ resource "helm_release" "cert_manager" {
     name  = "clusterResourceNamespace"
     value = var.k8s_namespace
   }
-
-  set {
-    name  = "global.leaderElection.namespace"
-    value = var.k8s_namespace
-  }
 }
 
 resource "null_resource" "apply_issuer" {
