@@ -111,6 +111,12 @@ variable "aws_assume_role_arn" {
   description = "Role ARN to assume when creating AWS resources"
 }
 
+variable "apply_assume_role_config" {
+  type        = bool
+  default     = true
+  description = "Configures the AWS provider for cert-manager to assume the created IAM role. In case you use kiam or something similar you have to use the pod annotation instead"
+}
+
 variable "disable_deprecated_crd_validation" {
   type        = bool
   default     = true
