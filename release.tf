@@ -3,7 +3,7 @@ locals {
   issuer_resource = templatefile("${path.module}/templates/issuer.yaml", {
     name               = format("%s-%s", var.namespace, var.name)
     private_key_secret = kubernetes_secret.ca_pk.metadata.0.name
-    common_name        = data.aws_route53_zone.zone.name
+    common_name        = substr(data.aws_route53_zone.zone.name, 0, length(data.aws_route53_zone.zone.name) - 2)
     hosted_zone_id     = data.aws_route53_zone.zone.zone_id
     iam_role_arn       = aws_iam_role.cert_manager.arn
     iam_role_name      = aws_iam_role.cert_manager.name
