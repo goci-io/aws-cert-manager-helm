@@ -46,11 +46,6 @@ resource "helm_release" "cert_manager" {
     file("${path.module}/defaults.yaml"),
     file("${var.helm_values_root}/values.yaml"),
   ]
-
-  set {
-    name  = "clusterResourceNamespace"
-    value = var.k8s_namespace
-  }
 }
 
 resource "null_resource" "apply_issuer" {
