@@ -48,7 +48,10 @@ resource "helm_release" "cert_manager" {
 }
 
 resource "null_resource" "apply_issuer" {
-  depends_on = [helm_release.cert_manager]
+  depends_on = [
+    helm_release.cert_manager, 
+    null_resource.destroy_issuer,
+  ]
 
   provisioner "local-exec" {
     command = "echo \"${self.triggers.issuer}\" | kubectl apply -f -"
@@ -60,8 +63,6 @@ resource "null_resource" "apply_issuer" {
 }
 
 resource "null_resource" "destroy_issuer" {
-  depends_on = [null_resource.apply_issuer]
-
   provisioner "local-exec" {
     when    = destroy
     command = "echo \"${self.triggers.issuer}\" | kubectl delete -f - --ignore-not-found"
