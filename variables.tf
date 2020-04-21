@@ -100,6 +100,12 @@ variable "helm_values_root" {
   description = "Path to the directory containing values.yaml for helm to overwrite any defaults"
 }
 
+variable "helm_release_version" {
+  type        = string
+  default     = "v0.14.2"
+  description = "The helm chart version to use for this release. Currently this module deploys CRDs from release 0.14"
+}
+
 variable "aws_region" {
   type        = string
   description = "AWS Region the hosted zone exists in"

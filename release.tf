@@ -38,7 +38,7 @@ resource "helm_release" "cert_manager" {
   name          = coalesce(var.app_name, var.name)
   namespace     = var.k8s_namespace
   chart         = "cert-manager"
-  version       = "v0.14.2"
+  version       = var.helm_release_version
   recreate_pods = true
   wait          = true
 
