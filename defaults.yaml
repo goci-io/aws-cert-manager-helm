@@ -2,6 +2,7 @@ global:
   podSecurityPolicy:
     enabled: true
 
+installCRDs: true
 replicaCount: 3
 
 prometheus:

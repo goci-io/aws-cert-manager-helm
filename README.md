@@ -1,10 +1,9 @@
 # aws-cert-manager-helm
 
 This module deploys [cert-manager](https://cert-manager.io/) using helm on AWS (Kubernetes).
-A reference to another terraform module state can be specified to read the issuer private key. Another option is to reference a file providing the private key in pem format. 
+A reference to another terraform module state can be specified to read the issuer private key. Another option is to reference a file providing the private key in pem format. The IAM role required to change DNS records in Rotue53 is created and applied to the cluster issuer. Currently only one deployment of an Issuer is supported.
 
-In addition to the configured helm release we also deploy the `ClusterIssuer` custom resource using the details provided.
-The IAM role required to change DNS records in Rotue53 is created and applied to the cluster issuer. Currently only one deployment of an Issuer is supported.
+The default version of the helm chart is currently an alpha version to support automatically creating CustomResourceDefinition's with correct configuration and namespace. The version used for now is `v0.15.0-alpha.0`. If you dont need automated installation of CRDs you can change the version for example to `v0.14.2` (current stable at the moment of writing).
 
 ### Usage
 
