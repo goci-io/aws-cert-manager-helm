@@ -33,7 +33,7 @@ resource "null_resource" "label_namespace" {
 }
 
 resource "helm_release" "cert_manager" {
-  depends_on    = [null_resource.apply_crds, null_resource.label_namespace]
+  depends_on    = [null_resource.label_namespace]
   repository    = data.helm_repository.jetstack.metadata.0.name
   name          = coalesce(var.app_name, var.name)
   namespace     = var.k8s_namespace
