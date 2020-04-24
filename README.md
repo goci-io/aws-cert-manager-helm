@@ -1,5 +1,9 @@
 # aws-cert-manager-helm
 
+**Maintained by [@goci-io/prp-terraform](https://github.com/orgs/goci-io/teams/prp-terraform)**
+
+![Terraform Validate](https://github.com/goci-io/aws-cert-manager-helm/workflows/Terraform%20Validate/badge.svg)
+
 This module deploys [cert-manager](https://cert-manager.io/) using helm on AWS (Kubernetes).
 A reference to another terraform module state can be specified to read the issuer private key. Another option is to reference a file providing the private key in pem format. The IAM role required to change DNS records in Rotue53 is created and applied to the cluster issuer. Currently only one deployment of an Issuer is supported.
 
