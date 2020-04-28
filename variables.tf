@@ -140,3 +140,9 @@ variable "iam_role_name_override" {
   default     = ""
   description = "Overrides the IAM role name to use for cert-manager DNS challanges with Route53"
 }
+
+variable "issuer_type" {
+  type        = string
+  default     = "Issuer"
+  description = "The issuer type to create initially. Valid values are Issuer or ClusterIssuer"
+}

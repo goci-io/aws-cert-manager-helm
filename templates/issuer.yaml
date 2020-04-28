@@ -1,7 +1,10 @@
 apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
+kind: ${issuer_type}
 metadata:
   name: ${name}
+%{ if issuer_type != "ClusterIssuer" ~}
+  namespace: ${k8s_namespace}
+%{ endif ~}
 spec:
   acme:
     email: ${email}
@@ -28,7 +31,7 @@ spec:
   secretName: ${name}-ca-tls
   isCA: true
   issuerRef:
-    kind: ClusterIssuer
+    kind: ${issuer_type}
     name: ${name}
   usages: 
   - "cert sign"
