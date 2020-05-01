@@ -19,21 +19,3 @@ spec:
 %{ if set_assume_config ~}
           role: ${iam_role_arn}
 %{ endif ~}
-
----
-
-apiVersion: cert-manager.io/v1alpha2
-kind: Certificate
-metadata:
-  name: ${name}-ca
-  namespace: ${k8s_namespace}
-spec:
-  secretName: ${name}-ca-tls
-  isCA: true
-  issuerRef:
-    kind: ${issuer_type}
-    name: ${name}
-  usages: 
-  - "cert sign"
-  organization:
-  - "${organization}"
