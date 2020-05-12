@@ -15,11 +15,6 @@ locals {
   })
 }
 
-data "helm_repository" "jetstack" {
-  name = "jetstack"
-  url  = "https://charts.jetstack.io"
-}
-
 # Disable validation of CRDs from previous versions
 resource "null_resource" "label_namespace" {
   count = var.disable_deprecated_crd_validation ? 1 : 0
@@ -35,7 +30,7 @@ resource "null_resource" "label_namespace" {
 
 resource "helm_release" "cert_manager" {
   depends_on    = [null_resource.label_namespace]
-  repository    = data.helm_repository.jetstack.metadata.0.name
+  repository    = "https://charts.jetstack.io"
   name          = coalesce(var.app_name, var.name)
   namespace     = var.k8s_namespace
   chart         = "cert-manager"
