@@ -1,18 +1,21 @@
+data "null_data_source" "issuers" {
+  count = length(var.issuers)
 
-locals {
-  issuer_resource = templatefile("${path.module}/templates/issuer.yaml", {
-    name               = format("%s-%s", var.namespace, var.name)
-    private_key_secret = kubernetes_secret.ca_pk.metadata.0.name
-    hosted_zone_id     = data.aws_route53_zone.zone.zone_id
-    iam_role_arn       = aws_iam_role.cert_manager.arn
-    iam_role_name      = aws_iam_role.cert_manager.name
-    set_assume_config  = var.apply_assume_role_config
-    issuer_type        = var.issuer_type
-    k8s_namespace      = var.k8s_namespace
-    organization       = var.namespace
-    email              = var.issuer_email
-    aws_region         = var.aws_region
-  })
+  inputs = {
+    resource = templatefile("${path.module}/templates/issuer.yaml", {
+      private_key_secret = kubernetes_secret.ca_pk.metadata.0.name
+      hosted_zone_id     = data.aws_route53_zone.zone.zone_id
+      iam_role_arn       = aws_iam_role.cert_manager.arn
+      iam_role_name      = aws_iam_role.cert_manager.name
+      set_assume_config  = var.apply_assume_role_config
+      name               = lookup(var.issuers[count.index], "name", "default")
+      issuer_type        = lookup(var.issuers[count.index], "type", "Issuer")
+      k8s_namespace      = lookup(var.issuers[count.index], "namespace", var.k8s_namespace)
+      organization       = var.namespace
+      email              = var.issuer_email
+      aws_region         = var.aws_region
+    })
+  }
 }
 
 # Disable validation of CRDs from previous versions
@@ -45,6 +48,7 @@ resource "helm_release" "cert_manager" {
 }
 
 resource "null_resource" "apply_issuer" {
+  count      = length(var.issuers)
   depends_on = [helm_release.cert_manager]
 
   provisioner "local-exec" {
@@ -52,17 +56,19 @@ resource "null_resource" "apply_issuer" {
   }
 
   triggers = {
-    issuer = local.issuer_resource
+    issuer = element(data.null_data_source.issuers.*.outputs.resource, count.index)
   }
 }
 
 resource "null_resource" "destroy_issuer" {
+  count = length(var.issuers)
+
   provisioner "local-exec" {
     when    = destroy
     command = "echo \"${self.triggers.issuer}\" | kubectl delete -f - --ignore-not-found"
   }
 
   triggers = {
-    issuer = local.issuer_resource
+    issuer = element(data.null_data_source.issuers.*.outputs.resource, count.index)
   }
 }
