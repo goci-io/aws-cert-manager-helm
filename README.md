@@ -39,6 +39,19 @@ module "cert_manager" {
 }
 ```
 
+#### Grant Access to multiple Zones
+
+```hcl
+module "cert_manager" {
+  ...
+
+  # Grant all Zones
+  iam_role_zone_grants = ["*"]
+}
+```
+
+You can also provide specific Hosted Zone IDs.
+
 #### Creating Issuer
 
 You can either let this module create a `ClusterIssuer` or `Issuer` (default). An issue is bound to the namespace cert-manager will be deployed into.
