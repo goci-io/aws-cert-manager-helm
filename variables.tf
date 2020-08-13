@@ -57,7 +57,7 @@ variable "k8s_namespace" {
 
 variable "dns_zone" {
   type        = string
-  description = "Name of the dns zone to create validation records in"
+  description = "Name of the DNS Zone to create Validation Records in. Used for the Issuers created by this Module"
 }
 
 variable "private_zone" {
@@ -133,6 +133,12 @@ variable "iam_role_name_override" {
   type        = string
   default     = ""
   description = "Overrides the IAM role name to use for cert-manager DNS challanges with Route53"
+}
+
+variable "iam_role_zone_grants" {
+  type        = list(string)
+  default     = []
+  description = "Additional Zone IDs or Wildcard to allow Cert-Manager Access to multiple Hosted Zones."
 }
 
 variable "issuers" {

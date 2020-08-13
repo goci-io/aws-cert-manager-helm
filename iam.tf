@@ -23,6 +23,19 @@ data "aws_iam_policy_document" "cert_manager" {
       "route53:ListResourceRecordSets",
     ]
   }
+
+  dynamic "statement" {
+    for_each = var.iam_role_zone_grants
+
+    content {
+      effect    = "Allow"
+      resources = ["arn:aws:route53:::hostedzone/${statement.value}"]
+      actions = [
+        "route53:ChangeResourceRecordSets",
+        "route53:ListResourceRecordSets",
+      ]
+    }
+  }
 }
 
 data "aws_iam_policy_document" "role_trust" {
