@@ -102,7 +102,7 @@ variable "helm_values_root" {
 
 variable "helm_release_version" {
   type        = string
-  default     = "v0.15.0-alpha.2"
+  default     = "v0.16.1"
   description = "The helm chart version to use for this release. Currently this module deploys CRDs from release 0.14"
 }
 
