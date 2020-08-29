@@ -20,7 +20,7 @@ module "label" {
 }
 
 module "iam_role" {
-  source             = "git::https://github.com/goci-io/aws-iam-assumable-role.git?ref=master"
+  source             = "git::https://github.com/goci-io/aws-iam-assumable-role.git?ref=tags/0.3.0"
   namespace          = var.namespace
   stage              = var.stage
   attributes         = var.attributes
