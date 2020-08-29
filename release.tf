@@ -59,7 +59,7 @@ resource "helm_release" "cert_manager" {
     }
   }
 
-  dynamic "set" {
+  dynamic "set_sensitive" {
     for_each = var.configure_kiam && var.iam_role_with_external_id ? [1] : []
 
     content {
