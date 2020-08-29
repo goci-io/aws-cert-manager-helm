@@ -1,3 +1,7 @@
+locals {
+  values_overwrite_path = "${var.helm_values_root}/values.yaml"
+}
+
 data "null_data_source" "issuers" {
   count = length(var.issuers)
 
@@ -43,7 +47,7 @@ resource "helm_release" "cert_manager" {
 
   values = [
     file("${path.module}/defaults.yaml"),
-    file("${var.helm_values_root}/values.yaml"),
+    fileexists(local.values_overwrite_path) ? file(local.values_overwrite_path) : "",
   ]
 }
 
