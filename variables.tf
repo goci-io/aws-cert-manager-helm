@@ -152,3 +152,9 @@ variable "issuers" {
   default     = []
   description = "List of custom issues to be added containing type (defaults to Issuer), name and namespace (only for non cluster issuers)"
 }
+
+variable "configure_kiam" {
+  type        = bool
+  default     = false
+  description = "Attaches Annotations to the Pod required for KIAM to fetch Credentials"
+}

@@ -49,6 +49,24 @@ resource "helm_release" "cert_manager" {
     file("${path.module}/defaults.yaml"),
     fileexists(local.values_overwrite_path) ? file(local.values_overwrite_path) : "",
   ]
+
+  dynamic "set" {
+    for_each = var.configure_kiam ? [1] : []
+
+    content {
+      name  = "podAnnotations.iam\\.amazonaws\\.com/role"
+      value = module.iam_role.role_arn
+    }
+  }
+
+  dynamic "set" {
+    for_each = var.configure_kiam && var.iam_role_with_external_id ? [1] : []
+
+    content {
+      name  = "podAnnotations.iam\\.amazonaws\\.com/external-id"
+      value = module.iam_role.external_id
+    }
+  }
 }
 
 resource "null_resource" "apply_issuer" {
