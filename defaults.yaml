@@ -1,9 +1,5 @@
-global:
-  podSecurityPolicy:
-    enabled: true
-
 installCRDs: true
-replicaCount: 3
+replicaCount: 2
 
 prometheus:
   servicemonitor:
@@ -11,10 +7,10 @@ prometheus:
 
 resources:
   requests:
-    cpu: 100m
+    cpu: 30m
     memory: 128Mi
   limits:
-    cpu: 200m
+    cpu: 120m
     memory: 256Mi
 
 webhook:
@@ -30,8 +26,8 @@ webhook:
 cainjector:
   resources:
     requests:
-      cpu: 50m
+      cpu: 20m
       memory: 128Mi
     limits:
-      cpu: 120m
+      cpu: 100m
       memory: 256Mi

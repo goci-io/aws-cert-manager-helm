@@ -135,6 +135,12 @@ variable "iam_role_name_override" {
   description = "Overrides the IAM role name to use for cert-manager DNS challanges with Route53"
 }
 
+variable "iam_role_with_external_id" {
+  type        = bool
+  default     = true
+  description = "Controls whether Cert-Manager IAM Role can only be assumed with an External-ID set"
+}
+
 variable "iam_role_zone_grants" {
   type        = list(string)
   default     = []
@@ -145,4 +151,10 @@ variable "issuers" {
   type        = list(any)
   default     = []
   description = "List of custom issues to be added containing type (defaults to Issuer), name and namespace (only for non cluster issuers)"
+}
+
+variable "configure_kiam" {
+  type        = bool
+  default     = false
+  description = "Attaches Annotations to the Pod required for KIAM to fetch Credentials"
 }

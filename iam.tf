@@ -34,6 +34,7 @@ module "iam_role" {
   stage              = var.stage
   attributes         = var.attributes
   name               = var.name
+  with_external_id   = var.iam_role_with_external_id
   role_name_override = var.iam_role_name_override
   trusted_iam_arns   = [var.cert_manager_trust_role]
   trusted_services   = var.iam_role_trusted_services
