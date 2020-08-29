@@ -5,8 +5,8 @@ data "null_data_source" "issuers" {
     resource = templatefile("${path.module}/templates/issuer.yaml", {
       private_key_secret = kubernetes_secret.ca_pk.metadata.0.name
       hosted_zone_id     = data.aws_route53_zone.zone.zone_id
-      iam_role_arn       = aws_iam_role.cert_manager.arn
-      iam_role_name      = aws_iam_role.cert_manager.name
+      iam_role_arn       = module.iam_role.role_arn
+      iam_role_name      = module.iam_role.role_id
       set_assume_config  = var.apply_assume_role_config
       name               = lookup(var.issuers[count.index], "name", "default")
       issuer_type        = lookup(var.issuers[count.index], "type", "Issuer")
