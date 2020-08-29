@@ -123,10 +123,10 @@ variable "disable_deprecated_crd_validation" {
   description = "Disables validation of previous custom resource definitions from certmanager.k8s.io"
 }
 
-variable "iam_role_trust_relations" {
-  type        = list(object({ type = string, identifiers = list(string) }))
-  default     = [{ type = "Service", identifiers = ["ec2.amazonaws.com"] }]
-  description = "Trust relations for the IAM role to allow assume role"
+variable "iam_role_trusted_services" {
+  type        = list(string)
+  default     = []
+  description = "Trusted AWS Services for the IAM role to allow Assume Role"
 }
 
 variable "iam_role_name_override" {
